@@ -2,15 +2,18 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import './questao.dart';
 
 main() => runApp(PerguntaApp());
 
-class PerguntaAppState extends State<PerguntaApp> {
-  var perguntaSelecionada = 0;
+class _PerguntaAppState extends State<PerguntaApp> {
+  var _perguntaSelecionada = 0;
 
-  void responder() {
-    perguntaSelecionada++;
-    print('perguntaSelecionada');
+  void _responder() {
+    setState(() {
+      _perguntaSelecionada++;
+    });
+    print('_perguntaSelecionada');
   }
 
   @override
@@ -27,13 +30,13 @@ class PerguntaAppState extends State<PerguntaApp> {
         ),
         body: Column(
           children: <Widget>[
-            Text(perguntas[perguntaSelecionada]),
+            Questao(perguntas[_perguntaSelecionada]),
             ElevatedButton(
-              onPressed: responder,
+              onPressed: _responder,
               child: Text('Resposta 1'),
             ),
-            ElevatedButton(onPressed: responder, child: Text('Resposta 3')),
-            ElevatedButton(onPressed: responder, child: Text('Resposta 3')),
+            ElevatedButton(onPressed: _responder, child: Text('Resposta 3')),
+            ElevatedButton(onPressed: _responder, child: Text('Resposta 3')),
           ],
         ),
       ),
@@ -43,7 +46,7 @@ class PerguntaAppState extends State<PerguntaApp> {
 
 class PerguntaApp extends StatefulWidget {
   @override
-  PerguntaAppState createState() {
-    return PerguntaAppState();
+  _PerguntaAppState createState() {
+    return _PerguntaAppState();
   }
 }
