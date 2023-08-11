@@ -18,20 +18,27 @@ class _PerguntaAppState extends State<PerguntaApp> {
 
   @override
   Widget build(BuildContext context) {
-    final List<Map<String, Object>> perguntas = [
+    final perguntas = [
       {
         'texto': 'Qual e a sua cor favorita ?',
-        'resposta': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+        'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
       },
       {
         'texto': 'Qual e a seu animal favorito ?',
-        'resposta': ['Cachorro', 'Gato', 'Leao', 'Tigre'],
+        'respostas': ['Cachorro', 'Gato', 'Leao', 'Tigre'],
       },
       {
         'texto': 'Qual é seu instrutor favorito?',
-        'resposta': ['Davi', 'Pedro', 'Leo', 'Joao'],
+        'respostas': ['Davi', 'Pedro', 'Leo', 'Joao'],
       }
     ];
+
+    List<Widget> respostas = [];
+
+    for (String textoResp
+        in perguntas[_perguntaSelecionada].cast()['respostas']) {
+      respostas.add(Resposta(textoResp, _responder));
+    }
 
     return MaterialApp(
       home: Scaffold(
@@ -41,9 +48,7 @@ class _PerguntaAppState extends State<PerguntaApp> {
         body: Column(
           children: <Widget>[
             Questao(perguntas[_perguntaSelecionada]['texto'].toString()),
-            Resposta('Resposta 1', _responder),
-            Resposta('Resposta 2', _responder),
-            Resposta('Resposta 3', _responder)
+            ...respostas,
           ],
         ),
       ),
