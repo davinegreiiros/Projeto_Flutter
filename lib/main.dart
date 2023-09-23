@@ -11,26 +11,45 @@ main() => runApp(PerguntaApp());
 
 class _PerguntaAppState extends State<PerguntaApp> {
   var _perguntaSelecionada = 0;
+  var _pontuacaoTotal = 0;
 
   final _perguntas = const [
     {
       'texto': 'Qual e a sua cor favorita ?',
-      'respostas': ['Preto', 'Vermelho', 'Verde', 'Branco'],
+      'respostas': [
+        {'texto': 'Preto', 'pontuacao': 10},
+        {'texto': 'Vermelho', 'pontuacao': 5},
+        {'texto': 'Verde', 'pontuacao': 3},
+        {'texto': 'Branco', 'pontuacao': 1},
+      ],
     },
     {
       'texto': 'Qual e a seu animal favorito ?',
-      'respostas': ['Cachorro', 'Gato', 'Leao', 'Tigre'],
+      'resposta': [
+        {'texto': 'Coelho', 'pontuacao': 10},
+        {'texto': 'Coelho', 'pontuacao': 5},
+        {'texto': 'Coelho', 'pontuacao': 3},
+        {'texto': 'Coelho', 'pontuacao': 1},
+      ]
     },
     {
       'texto': 'Qual é seu instrutor favorito?',
-      'respostas': ['Davi', 'Pedro', 'Leo', 'Joao'],
+      'respostas': [
+        {'texto': 'Davi', 'pontuacao': 10},
+        {'texto': 'Leo', 'pontuacao': 5},
+        {'texto': 'Pedro', 'pontuacao': 3},
+        {'texto': 'João', 'pontuacao': 1},
+      ],
     }
   ];
 
-  void _responder() {
-    setState(() {
-      _perguntaSelecionada++;
-    });
+  void _responder(int pontuacao) {
+    if (temPerguntaSelecionada) {
+      setState(() {
+        _perguntaSelecionada++;
+        _pontuacaoTotal += pontuacao;
+      });
+    }
   }
 
   bool get temPerguntaSelecionada {
@@ -56,7 +75,10 @@ class _PerguntaAppState extends State<PerguntaApp> {
 }
 
 class PerguntaApp extends StatefulWidget {
+  const PerguntaApp({super.key});
+
   @override
+  // ignore: library_private_types_in_public_api
   _PerguntaAppState createState() {
     return _PerguntaAppState();
   }
