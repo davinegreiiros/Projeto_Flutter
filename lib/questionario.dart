@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'questao.dart';
-import 'resposta.dart';
+import './questao.dart';
+import './resposta.dart';
 
 class Questionario extends StatelessWidget {
   final List<Map<String, Object>> perguntas;
@@ -8,10 +8,10 @@ class Questionario extends StatelessWidget {
   final void Function(int) quandoResponder;
 
   const Questionario({
-    super.key,
     required this.perguntas,
     required this.perguntaSelecionada,
     required this.quandoResponder,
+    super.key,
   });
 
   bool get temPerguntaSelecionada {
@@ -26,15 +26,14 @@ class Questionario extends StatelessWidget {
         : [];
 
     return Column(
-      children: <Widget>[
-        Questao(perguntas[perguntaSelecionada]['texto'].toString()),
-        ...respostas
-            .map((resp) => Resposta(
-                  resp['texto'].toString(),
-                  () =>
-                      quandoResponder(int.parse(resp['pontuacao'].toString())),
-                ))
-            .toList(),
+      children: [
+        Questao(perguntas[perguntaSelecionada]['texto'] as String),
+        ...respostas.map((resp) {
+          return Resposta(
+            resp['texto'] as String,
+            () => quandoResponder(resp['pontuacao'] as int),
+          );
+        }).toList(),
       ],
     );
   }
